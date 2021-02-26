@@ -1,0 +1,26 @@
+{
+  "name": "Projeto_qrcode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vicente1507/Projeto_qrcode.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vicente1507/Projeto_qrcode/issues"
+  },
+  "homepage": "https://github.com/Vicente1507/Projeto_qrcode#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "http": "0.0.1-security"
+  }
+}
