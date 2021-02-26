@@ -4,10 +4,12 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
-app.use(bodyParser.urlencoded({​​​​​ extended: true }​​​​​));
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 
+
 const corsConfig = require('./corsConfig.js');
+const { urlencoded } = require('body-parser');
 corsConfig(app);
 
 const server = http.createServer(app);
