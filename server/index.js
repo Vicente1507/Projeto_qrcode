@@ -12,6 +12,9 @@ const corsConfig = require('./corsConfig.js');
 const { urlencoded } = require('body-parser');
 corsConfig(app);
 
+const dbCon = require('./db.js');
+dbCon.connect();
+
 const maquinasGet = require('./api/maquinas_get.js')
 const maquinasPost = require('./api/maquinas_post.js')
 const maquinasDelete = require('./api/maquinas_delete.js')
