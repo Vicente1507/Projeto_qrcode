@@ -23,7 +23,7 @@ app.get('/maquinas', maquinasGet);
 
 app.post('/maquinas', maquinasPost);
 
-app.delete('/maquinas', maquinasDelete)
+app.delete('/maquinas/:id', maquinasDelete)
 
 const server = http.createServer(app);
 server.listen(3000, '127.0.0.1');
