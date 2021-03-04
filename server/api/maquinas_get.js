@@ -24,6 +24,7 @@ module.exports = (req, res) => {
                             throw new Error(erro);
 
                         }
+
                         const dados =
                         maquina.map((item) => {
                             return {
@@ -31,7 +32,8 @@ module.exports = (req, res) => {
                                 midias: filtrarImagens(midias, item.id)
                             }
                         });
-                        res.status(200).send(maquina)
+
+                        res.status(200).send(dados)
                     })
             })
     } catch (erro) {
