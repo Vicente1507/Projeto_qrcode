@@ -1,1 +1,1 @@
-# Projeto_qrcode
+Projeto QR Code para o SENAI Suiço-Brasileira
