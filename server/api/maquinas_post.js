@@ -26,7 +26,3 @@ module.exports = (req, res, next) => {
         res.status(cod).send({ status:'Falha', mensagem });
     }
 }
-
-// res.status(201).send({
-//     mensagem: "Post funcionou"
-// });
