@@ -8,6 +8,20 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 
 
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+    destination(req, file, cb) {
+        cb(null, './uploads')
+    },
+    filename(req, file, cb) {
+        cb(null, `${new Date().toISOString().replace(/:/g, '-')}-${file.originalname}`)
+    }
+});
+
+const upload = multer({storage})
+
+
 const corsConfig = require('./corsConfig.js');
 const { urlencoded } = require('body-parser');
 corsConfig(app);
@@ -19,9 +33,11 @@ const maquinasGet = require('./api/maquinas_get.js')
 const maquinasPost = require('./api/maquinas_post.js')
 const maquinasDelete = require('./api/maquinas_delete.js')
 
+app.use('/uploads', express.static('uploads'));
+
 app.get('/maquinas', maquinasGet);
 
-app.post('/maquinas', maquinasPost);
+app.post('/maquinas', upload.array('imagens'), maquinasPost);
 
 app.delete('/maquinas/:id', maquinasDelete)
 
