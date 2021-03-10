@@ -39,7 +39,7 @@ app.get('/maquinas', maquinasGet);
 app.use('/uploads', express.static('uploads'));
 
 const maquinasPost = require('./api/maquinas_post.js');
-app.post('/maquinas', upload.array('imagens'), maquinasPost);
+app.post('/maquinas', upload.array('midias'), maquinasPost);
 
 const maquinasDelete = require('./api/maquinas_delete.js');
 app.delete('/maquinas/:id', maquinasDelete);
