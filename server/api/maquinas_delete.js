@@ -1,40 +1,37 @@
-const dbCon = require("../db.js");
+const { unlink } = require('fs');
+const dbCon = require('../db.js');
 
-module.exports = (req, res, next) => {
+module.exports = (req, res) => {
     try {
-        const id = req.params.id
+        const id = req.params.id;
+        const  { midias } = req.body;
 
-        if(!id){        
-            const erro = JSON.stringify({
-                cod: 400, mensagem: "Dados incompletos!"
-            });
+        if (!id || !midias?.length > 0) {
+            const erro = JSON.stringify({ cod: 400, mensagem: "Dados incompletos!" });
             throw new Error(erro);
         }
 
-        dbCon.query(`delete from maquina where id = ${id}`, (erroMaquina) => {          
-            if(erroMaquina){        
-                const erro = JSON.stringify({
-                    cod: 502, mensagem: "Erro ao remover dados da tabela máquina!"
-                });
+        dbCon.query(`DELETE FROM maquina WHERE id = ${id}`, (erroMaquina) => {
+            if (erroMaquina) {
+                const erro = JSON.stringify({ cod: 502, mensagem: "Erro ao deletar maquina no banco de dados!" });
                 throw new Error(erro);
             }
 
-            dbCon.query(`delete from midias where maquina_id = ${id}`, (erroMidias) =>{        
-                if(erroMidias){        
-                    const erro = JSON.stringify({
-                        cod: 502, mensagem: "Erro ao remover dados da tabela midias!"
-                    });
-                    throw new Error(erro);
-                }    
-                res.status(201).send({status:"sucesso", mensagem:"dados removidos com sucesso!"})
+            midias.forEach(({ caminho }) => {
+                unlink(caminho, () => {});
+            });
 
+            dbCon.query(`DELETE FROM midias WHERE maquina_id = ${id}`, (erroMidias) => {
+                if (erroMidias) {
+                    const erro = JSON.stringify({ cod: 502, mensagem: "Erro ao deletar mídias no banco de dados!" });
+                    throw new Error(erro);
+                }
+        
+                res.status(201).send({ status: "Sucesso", mensagem: "Dados removidos!" });
             });
         });
-
-    }
-    catch(erro){
+    } catch (erro) {
         const objErro = JSON.parse(erro.message);
-        //resposta da API
-        res.status(objErro.cod).send({ status : "Falha", mensagem: objErro.mensagem});
+        res.status(objErro.cod).send({ status: "Falha", mensagem: objErro.mensagem }); 
     }
 }
